@@ -45,16 +45,22 @@ linkBtns.forEach((btn) => {
     const bottom = tempBtn.bottom - 3;
 
     const tempPage = sublinks.find(({ page }) => page === text);
-    console.log(tempPage);
     if (tempPage) {
       const { page, links } = tempPage;
       submenu.classList.add("show");
       submenu.style.left = `${center}px`;
       submenu.style.top = `${bottom}px`;
+
+      // set column dynamically
+      let columns = "col-2";
+      if (links.length === 3) columns = "col-3";
+      if (links.length > 3) {
+        columns = "col-4";
+      }
       submenu.innerHTML = `
       <section>
         <h4>${page}</h4>
-        <div class="submenu-center col-2">
+        <div class="submenu-center ${columns}">
             ${links
               .map((link) => {
                 return `<a href="${link.url}">
@@ -67,4 +73,13 @@ linkBtns.forEach((btn) => {
       `;
     }
   });
+});
+
+// hide when hover over nav/hero
+hero.addEventListener("mouseover", function (e) {
+  submenu.classList.remove("show");
+});
+nav.addEventListener("mouseover", function (e) {
+  if (!e.target.classList.contains("link-btn"))
+    submenu.classList.remove("show");
 });
