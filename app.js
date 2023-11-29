@@ -35,3 +35,17 @@ sidebar.innerHTML = sublinks
   </article>`;
   })
   .join("");
+
+// submenu
+linkBtns.forEach((btn) => {
+  btn.addEventListener("mouseover", (e) => {
+    const text = e.currentTarget.textContent;
+    const tempBtn = e.currentTarget.getBoundingClientRect();
+    const center = (tempBtn.left + tempBtn.right) / 2;
+    const bottom = tempBtn.bottom - 3;
+
+    submenu.classList.add("show");
+    submenu.style.left = `${center}px`;
+    submenu.style.top = `${bottom}px`;
+  });
+});
